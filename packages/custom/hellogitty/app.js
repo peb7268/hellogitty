@@ -5,18 +5,26 @@
  */
 var Module      = require('meanio').Module;
 var Hellogitty  = new Module('hellogitty');
-
+var Articles    = new Module('articles');
 /*
  * All MEAN packages require registration
  * Dependency injection is used to define required modules
  */
-Hellogitty.register(function(app, auth, database) {
+Hellogitty.register(function(app, auth, database, Articles) {
   app.set('views', __dirname + '/server/views');
 
   //We enable routing. By default the Package Object is passed to the routes
   Hellogitty.routes(app, auth, database);
 
   Hellogitty.aggregateAsset('css', 'hellogitty.css');
+
+   Hellogitty.menus.add({
+     title: 'theme example page',
+     link: 'theme example page',
+     menu: 'main'
+   });
+
+   Articles.menus.remove('Articles');
 
 
   /**
